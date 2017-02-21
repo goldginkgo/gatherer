@@ -70,4 +70,48 @@ RSpec.describe Project do
       expect(project).to be_on_schedule
     end
   end
+
+  #
+  it "stubs an object" do
+    project = Project.new(name: "Project Greenlight")
+    allow(project).to receive(:name)
+    expect(project.name).to be_nil
+  end
+  #
+
+  #
+  it "stubs an object again" do
+    project = Project.new(name: "Project Greenlight")
+    allow(project).to receive(:name).and_return("Fred")
+    expect(project.name).to eq("Fred")
+  end
+  #
+
+  #
+  it "stubs the class" do
+    allow(Project).to receive(:find).and_return(
+        Project.new(name: "Project Greenlight"))
+    project = Project.find(1)
+    expect(project.name).to eq("Project Greenlight")
+  end
+#
+
+#
+  it "mocks an object" do
+    mock_project = Project.new(name: "Project Greenlight")
+    expect(mock_project).to receive(:name).and_return("Fred")
+    expect(mock_project.name).to eq("Fred")
+  end
+#
+
+#
+  it "stubs with multiple returns" do
+    # project = Project.new
+    # allow(project).to receive(:user_count).and_return(1, 2)
+    # assert_equal(1, project.user_count)
+    # assert_equal(2, project.user_count)
+    # assert_equal(2, project.user_count)
+  end
+#
+
 end

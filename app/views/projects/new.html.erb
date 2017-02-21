@@ -3,9 +3,12 @@
 <%= form_for @project do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
-  <br>
+
+  <br />
+
   <%= f.label :tasks %>
   <%= text_area_tag :"project[tasks]" %>
-  <br>
+
+  <br />
   <%= f.submit %>
 <% end %>

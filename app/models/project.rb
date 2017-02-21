@@ -1,8 +1,19 @@
 class Project < ActiveRecord::Base
-
   has_many :tasks
 
   validates :name, presence: true
+
+  def total_size
+    tasks.to_a.sum(&:size)
+  end
+
+  def remaining_size
+    incomplete_tasks.to_a.sum(&:size)
+  end
+
+  def completed_velocity
+    tasks.to_a.sum(&:points_toward_velocity)
+  end
 
   def self.velocity_length_in_days
     21
@@ -14,19 +25,6 @@ class Project < ActiveRecord::Base
 
   def done?
     incomplete_tasks.empty?
-  end
-
-  def total_size
-    tasks.to_a.sum(&:size)
-  end
-
-  def remaining_size
-    incomplete_tasks.sum(&:size)
-  end
-
-
-  def completed_velocity
-    tasks.to_a.sum(&:points_toward_velocity)
   end
 
   def current_rate
