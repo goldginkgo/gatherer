@@ -21,19 +21,15 @@ RSpec.describe Project do
       expect(project).to be_done
     end
 
-    #
     it "properly estimates a blank project" do
       expect(project.completed_velocity).to eq(0)
       expect(project.current_rate).to eq(0)
       expect(project.projected_days_remaining.nan?).to be_truthy
       expect(project).not_to be_on_schedule
     end
-    #
-
   end
 
   describe "estimates" do
-    #
     let(:project) { Project.new }
     let(:newly_done) { Task.new(size: 3, completed_at: 1.day.ago) }
     let(:old_done) { Task.new(size: 2, completed_at: 6.months.ago) }
@@ -43,17 +39,18 @@ RSpec.describe Project do
     before(:example) do
       project.tasks = [newly_done, old_done, small_not_done, large_not_done]
     end
-    #
 
+    #
     it "can calculate total size" do
-      expect(project.total_size).to eq(10)
+      expect(project).to be_of_size(10)
+      expect(project).to be_of_size(5).for_incomplete_tasks_only
     end
+    #
 
     it "can calculate remaining size" do
       expect(project.remaining_size).to eq(5)
     end
 
-    #
     it "knows its velocity" do
       expect(project.completed_velocity).to eq(3)
     end
@@ -72,8 +69,5 @@ RSpec.describe Project do
       project.due_date = 6.months.from_now
       expect(project).to be_on_schedule
     end
-
-    #
-
   end
 end
