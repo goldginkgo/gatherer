@@ -6,7 +6,7 @@ RSpec.describe Project do
     let(:project) { Project.new }
     let(:task) { Task.new }
 
-    it "considers a project with no test to be done" do
+    it "considers a project with no task to be done" do
       expect(project).to be_done
     end
 

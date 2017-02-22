@@ -1,7 +1,8 @@
+require 'project_presenter'
 class ProjectsController < ApplicationController
 
   def index
-    @projects = Project.all
+    @projects = ProjectPresenter.from_project_list(Project.all)
   end
 
   def new

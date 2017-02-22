@@ -35,8 +35,12 @@ class Project < ActiveRecord::Base
     remaining_size / current_rate
   end
 
+  def undefined_rate?
+    current_rate == 0
+  end
+
   def on_schedule?
-    return false if projected_days_remaining.nan?
+    return false if undefined_rate?
     (Date.today + projected_days_remaining) <= due_date
   end
 end
