@@ -1,10 +1,14 @@
 class Project < ActiveRecord::Base
-  has_many :tasks
+  has_many :tasks, -> { order "project_order ASC" }
 
   validates :name, presence: true
 
   def total_size
     tasks.to_a.sum(&:size)
+  end
+
+  def size
+    total_size
   end
 
   def remaining_size
@@ -43,4 +47,12 @@ class Project < ActiveRecord::Base
     return false if undefined_rate?
     (Date.today + projected_days_remaining) <= due_date
   end
+
+  #
+  def next_task_order
+    return 1 if tasks.empty?
+    (tasks.last.project_order || tasks.size) + 1
+  end
+  #
+
 end

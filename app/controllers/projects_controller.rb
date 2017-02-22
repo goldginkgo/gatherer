@@ -1,4 +1,3 @@
-require 'project_presenter'
 class ProjectsController < ApplicationController
 
   def index
@@ -8,6 +7,12 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
   end
+
+  #
+  def show
+    @project = Project.find(params[:id])
+  end
+  #
 
   def create
     @action = CreatesProject.new(

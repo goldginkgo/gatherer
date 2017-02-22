@@ -10,7 +10,7 @@ RSpec.describe Project do
       expect(project).to be_done
     end
 
-    it "knows that a project with an incomplete test is not done" do
+    it "knows that a project with an incomplete task is not done" do
       project.tasks << task
       expect(project).not_to be_done
     end
@@ -113,5 +113,16 @@ RSpec.describe Project do
     # assert_equal(2, project.user_count)
   end
 #
+  describe "task order" do
+    let(:project) { project = Project.create(name: "Project") }
 
+    it "gives me the order of the first task in an empty project" do
+      expect(project.next_task_order).to eq(1)
+    end
+
+    it "gives me the order of the next task in a project" do
+      project.tasks.create(project_order: 3)
+      expect(project.next_task_order).to eq(4)
+    end
+  end
 end

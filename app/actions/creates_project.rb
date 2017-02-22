@@ -1,8 +1,9 @@
 class CreatesProject
+
   attr_accessor :name, :task_string, :project
 
   def initialize(name: "", task_string: "")
-    @name= name
+    @name = name
     @task_string = task_string
   end
 
@@ -12,6 +13,7 @@ class CreatesProject
     project
   end
 
+
   def convert_string_to_tasks
     task_string.split("\n").map do |task_string|
       title, size = task_string.split(":")
@@ -20,8 +22,13 @@ class CreatesProject
     end
   end
 
+  def save
+
+  end
+
   def create
     build
     project.save
   end
+
 end
